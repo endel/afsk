@@ -1,7 +1,7 @@
 AFSK
 ===
 
-Audio Frequency-shift keying using HTML5 Audio API.
+Audio [Frequency-shift keying](http://en.wikipedia.org/wiki/Frequency-shift_keying) using HTML5 Audio API.
 
 **Online demo:**
 
