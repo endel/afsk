@@ -1,0 +1,31 @@
+{
+  "name": "afsk",
+  "version": "0.0.1",
+  "description": "Audio Frequency-shift keying using HTML5 Audio API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t babelify src/index.js -s AFSK > dist/afsk.js",
+    "watch": "watchify -t babelify src/index.js -s AFSK -o dist/afsk.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/endel/afsk"
+  },
+  "keywords": [
+    "afsk",
+    "fsk",
+    "audio"
+  ],
+  "author": "Endel Dreyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/endel/afsk/issues"
+  },
+  "homepage": "https://github.com/endel/afsk",
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "watchify": "^2.4.0"
+  }
+}
