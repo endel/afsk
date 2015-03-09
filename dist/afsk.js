@@ -105,14 +105,31 @@ var Receiver = (function () {
         // The output buffer contains the samples that will be modified and played
         var outputBuffer = audioProcessingEvent.outputBuffer;
 
+        var binaryNumbers = [];
+
         // Loop through the output channels (in this case there is only one)
         for (var channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
           var inputData = inputBuffer.getChannelData(channel);
           var outputData = outputBuffer.getChannelData(channel);
 
+          var binaryState = 0,
+              binary = "",
+              lastSample = null;
+
           // Loop through the samples
           for (var sample = 0; sample < inputBuffer.length; sample++) {
-            console.log(inputData[sample]);
+            if (binaryState == 0 && binary.length < 6 && inputData[sample] > -0.5 && inputData[sample] < 0.5) {
+              binary += lastSample;
+              binaryState = 1;
+            }
+
+            lastSample = inputData[sample];
+
+            if (binary.length == 6) {
+              binaryNumbers.push(binary);
+              binaryState = STATE_DATA;
+            }
+
             if (this.state == STATE_WAITING && inputData[sample] == this.signature[0]) {
               this.state = STATE_SIGNATURE_BEGIN;
               console.log("Signature begin");
@@ -209,7 +226,7 @@ var Transmitter = (function () {
               // 1 = 1
               // -1 = 0
               // 0 = closing binary flag
-              if (i == binaries.length - 1 && j > bytesPerFrame / 4) {
+              if (j > bytesPerFrame / 4) {
                 buffering[i * bytesPerFrame + j] = 0;
               } else {
                 buffering[i * bytesPerFrame + j] = binaries[i] * 2 - 1;

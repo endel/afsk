@@ -1,6 +1,8 @@
 AFSK
 ===
 
+**Work in progress**, receiver doesn't work yet.
+
 Audio [Frequency-shift keying](http://en.wikipedia.org/wiki/Frequency-shift_keying) using HTML5 Audio API.
 
 **Online demo:**

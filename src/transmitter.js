@@ -42,7 +42,7 @@ export default class Transmitter {
           // 1 = 1
           // -1 = 0
           // 0 = closing binary flag
-          if (i == binaries.length - 1 && j > bytesPerFrame / 4) {
+          if (j > bytesPerFrame / 4) {
             buffering[(i * bytesPerFrame) + j] = 0;
           } else {
             buffering[(i * bytesPerFrame) + j] = (binaries[i] * 2) - 1;

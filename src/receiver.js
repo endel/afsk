@@ -54,14 +54,31 @@ export default class Receiver {
     // The output buffer contains the samples that will be modified and played
     var outputBuffer = audioProcessingEvent.outputBuffer;
 
+    let binaryNumbers = [];
+
     // Loop through the output channels (in this case there is only one)
     for (var channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
       var inputData = inputBuffer.getChannelData(channel);
       var outputData = outputBuffer.getChannelData(channel);
 
+      let binaryState = 0,
+          binary = "",
+          lastSample = null;
+
       // Loop through the samples
       for (var sample = 0; sample < inputBuffer.length; sample++) {
-        console.log(inputData[sample]);
+        if (binaryState == 0 && binary.length < 6 && inputData[sample] > -0.5 && inputData[sample] < 0.5) {
+          binary += lastSample;
+          binaryState = 1;
+        }
+
+        lastSample = inputData[sample];
+
+        if (binary.length == 6) {
+          binaryNumbers.push(binary);
+          binaryState = STATE_DATA;
+        }
+
         if (this.state == STATE_WAITING && inputData[sample] == this.signature[0]) {
           this.state = STATE_SIGNATURE_BEGIN;
           console.log("Signature begin");
