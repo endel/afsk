@@ -26,6 +26,7 @@
   "devDependencies": {
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
+    "gh-pages": "^0.2.0",
     "watchify": "^2.4.0"
   }
 }
